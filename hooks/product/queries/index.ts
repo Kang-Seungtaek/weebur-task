@@ -1,2 +1,4 @@
-export * from './productQueryKeys'
-export * from './useProduct'
+export * from "./productQueryKeys";
+export * from "./schemas";
+
+export * from "./useProduct";

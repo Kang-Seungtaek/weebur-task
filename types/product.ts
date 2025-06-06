@@ -1,3 +1,5 @@
+export type ProductViewType = "list" | "grid";
+
 export interface ProductDetail {
   title: string;
   description: string;
