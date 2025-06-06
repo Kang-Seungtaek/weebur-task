@@ -1,37 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 프로젝트 실행 방법
 
-## Getting Started
-
-First, run the development server:
-
+패키지 설치
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+개발서버 실행
 ```bash
 npm run dev
 # or
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
+http://localhost:3000 로 접속합니다. (과제에 "/" 페이지 구현사항이 없어 middleware에서 "/products" 페이지로 리다이렉팅 진행됩니다.)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 프로젝트 구조
+컴포넌트 작성은 최대한 독립적으로 작은개념에서 큰개념으로 넘어가도록 설계하고자 하였습니다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `components/`: 기능별로 폴더를 구분하였습니다.
+- `hooks/`: 1차적으로 기능별로 폴더를 구분후 /queries(tanstack quries), /store(글로벌 상태관리), /custom 으로 폴더를 세분화 할 예정이였으나 현재 프로젝트에서는 queries만 사용하였습니다.
+- `lib/`: util, api 등등 자주 사용하는 함수 재사용을 위해 폴터들 구분하였습니다
+- `types/`: 기능별 타입으로 구분하였습니다.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# weebur-task
+## 개발이슈
+- 상품 리스트 뷰 타입에 관한 접근을 어떻게 할지 고민하다가 nextjs api route로 api를 만들어 쿠키의 값을 보관해놓은 다음 24시간을 체크해 응답 값을 내려주는 방법과 클라이언트 사이드에서도 클라이언트가 초기화가 되지 않는다는 가정하여 tanstack query를 사용하여 24시간 동안 캐싱을 설정하는 방법을 택하였습니다. tanstak persist를 통한 localstorage 보관도 고려해 보았으나 보일러 플레이트가 클 것 같은 점과 실제 서비스를 운영한다면 뭔가 하드코딩을 하는 느낌이라 유동적인 대처를 고려해 server에서 받아온다는 가정하에 진행하였습니다.
